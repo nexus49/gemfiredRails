@@ -16,10 +16,15 @@ class UserModel < HashIt
 
 
   def self.find_all
-    @@user_region.entries(false)
+    @@user_region.entrySet(false)
   end
 
   def self.add(key, value)
-    @@user_region.put(key, value)
+    begin
+      @@user_region.put(key, value)
+    rescue Exception => e
+      Rails.logger.info "[UserModel] Error #{e.class} #{e.message}"
+    end
+
   end
 end

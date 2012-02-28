@@ -6,3 +6,4 @@ tmp/
 .idea
 *.lock
 vf.gf.*
+*.lck

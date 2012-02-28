@@ -11,3 +11,10 @@
  *= require_self
  *= require_tree .
 */
+
+body {
+	font-family: 'Proxima Nova',arial,sans-serif;
+	font-size: 13px;
+	color: #3F3F3F;
+	margin: 0; padding: 0;
+}

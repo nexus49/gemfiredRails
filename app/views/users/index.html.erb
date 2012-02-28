@@ -1,18 +1,15 @@
 
-<table>
-  <tr>
-    <th>Firstname</th>
-    <th>Lastname</th>
-  </tr>
-  <tr class="new_user_row">
-    <td><input id="firstname" name="firstname"></input></td>
-    <td><input id="lastname" name="lastname"></input></td>
-    <td><div data-role="submit">Submit </div></td>
-  </tr>
-  <% @users.each do |user| %>
-    <tr>
-      <td><%= " #{user.value.firstname}"%></td>
-      <td><%= "#{user.value.lastname}"%></td>
-    </tr>
-    <% end %>
+<table id="user_table">
+  <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+      </tr>
+      <tr class="new_user_row">
+        <td><input id="firstname" name="firstname"></input></td>
+        <td><input id="lastname" name="lastname"></input></td>
+        <td><div data-role="submit">Submit </div></td>
+      </tr>
+  </thead>
+  <tbody></tbody>
 </table>
