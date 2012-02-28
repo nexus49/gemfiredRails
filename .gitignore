@@ -5,3 +5,4 @@ tmp/
 .DS_Store
 .idea
 *.lock
+vf.gf.*
