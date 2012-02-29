@@ -7,3 +7,10 @@ tmp/
 *.lock
 vf.gf.*
 *.lck
+*.if
+*.crf
+*.drf
+.locator
+*.lk
+*.dat
+*.log

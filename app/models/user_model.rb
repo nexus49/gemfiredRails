@@ -1,30 +1,33 @@
-require 'lib/gemfire.jar'
+require 'lib/antlr.jar'
+require 'lib/gemfire-6.6.1.jar'
 
-class UserModel < HashIt
-  def self.init_region
-    cache= com.gemstone.gemfire.cache.CacheFactory.new
-    cache_inst = cache.set("locators","localhost[55221]").set("mcast-port","0").set("log-level","error").create()
+class UserModel
+  include com.gemstone.gemfire.DataSerializable
 
-    unless cache_inst.getRegion("users")
-      cache_inst.createRegionFactory().create("users")
-    end
+  attr_accessor :firstname, :lastname
 
-    cache_inst.getRegion("users")
+  def initialize(firstname, lastname)
+    @firstname, @lastname = firstname, lastname
   end
 
-  @@user_region = UserModel.init_region
-
+  @@cache = RubyCache.new
 
   def self.find_all
-    @@user_region.entrySet(false)
+    @@cache.region.entrySet(false)
   end
 
   def self.add(key, value)
-    begin
-      @@user_region.put(key, value)
-    rescue Exception => e
-      Rails.logger.info "[UserModel] Error #{e.class} #{e.message}"
-    end
+    @@cache.region.put(key, value)
+  end
 
+  def self.search(query)
+    result = @@cache.cache.query_service().new_query(query).execute()
+    Rails.logger.info result
+    result
+  end
+
+  def to_data(out)
+    Rails.logger.info "Serializing #{to_json(self)}"
+    out.writeBytes(to_json(self).to_java)
   end
 end
